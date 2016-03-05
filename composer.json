@@ -18,7 +18,8 @@
     "minimum-stability": "dev",
 
     "require": {
-        "vinelab/assistant": "~1.2"
+        "vinelab/assistant": "~1.2",
+        "symfony/console": "^3.0"
     },
 
     "require-dev": {
