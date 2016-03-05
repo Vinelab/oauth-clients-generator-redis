@@ -1,0 +1,35 @@
+{
+    "name": "vinelab/oauth-clients-generator-redis",
+    "description": "Redis Client Generator for the League's PHP OAuth 2.0 server",
+    "keywords": ["redis", "oauth2", "client", "database", "client-generator"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Charalampos Raftopoulos",
+            "email": "harris@vinelab.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Kinane Domloje",
+            "email": "kinane@vinelab.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+
+    "require": {
+        "vinelab/assistant": "~1.2"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "fabpot/php-cs-fixer": "^1.10",
+        "mockery/mockery": "0.9.*"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Vinelab\\ClientGenerator\\": "src/"
+        }
+    }
+}
