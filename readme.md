@@ -15,7 +15,7 @@ TODO
 
 #### Create Client
 
-In order to create a new client, use the command:
+In order to create a new client, use the command:\s\s
 `oauth clients:create {name} {password} {redirect_uri = ''} {grantType = 'client_credentials'}`,
 
 where:
@@ -28,7 +28,7 @@ where:
 #### Delete Client
 
 In order to delete a specific client, use the command:
-`oauth clients:delete {client_id} {password}`,
+`oauth clients:delete {client_id} {password}`,\s\s
 
 where:
 
@@ -41,14 +41,14 @@ In order to list all available clients, use the command `oauth clients:list`.
 
 #### Fetch Client (or client's secret)
 
-In order to fetch a specific client or just fetch a client's secret, use the command:
+In order to fetch a specific client or just fetch a client's secret, use the command:\s\s
 `oauth clients:fetch {client_id}`,
 
 where:
 
 `client_id` => The client's id, [*REQUIRED*],
 
-and in case you want to fetch a specific user's secret, you can use the `--show-secret` flag in the command
+and in case you want to fetch a specific user's secret, you can use the `--show-secret` flag in the command:\s\s
 eg. `oauth clients:fetch {client_id} --show-secret {password}`
 
 where:
