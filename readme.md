@@ -15,9 +15,10 @@ TODO
 
 #### Create Client
 
-In order to create a new client, use the command `oauth clients:create {name} {password} {redirect_uri = ''} {grantType = 'client_credentials'}`.
+In order to create a new client, use the command:
+`oauth clients:create {name} {password} {redirect_uri = ''} {grantType = 'client_credentials'}`,
 
-Where:
+where:
 
 `name` => The name of the application, [*REQUIRED*],
 `password` => A password to use when you need to delete a client or re-generate his secret [*REQUIRED*],
@@ -26,9 +27,10 @@ Where:
 
 #### Delete Client
 
-In order to delete a specific client, use the command `oauth clients:delete {client_id} {password}`.
+In order to delete a specific client, use the command:
+`oauth clients:delete {client_id} {password}`,
 
-Where:
+where:
 
 `client_id` => The client's id, [*REQUIRED*],
 `password` => The password the user used when created the client [*REQUIRED*]
@@ -39,12 +41,16 @@ In order to list all available clients, use the command `oauth clients:list`.
 
 #### Fetch Client (or client's secret)
 
-In order to fetch a specific client or just fetch a client's secret, use the command `oauth clients:fetch {client_id}`.
+In order to fetch a specific client or just fetch a client's secret, use the command:
+`oauth clients:fetch {client_id}`,
 
-Where:
+where:
 
 `client_id` => The client's id, [*REQUIRED*],
 
-and in case you want to fetch a specific user's secret, you can use the `--show-secret` flag in the command eg. `oauth clients:fetch {client_id} --show-secret {password}` where:
+and in case you want to fetch a specific user's secret, you can use the `--show-secret` flag in the command
+eg. `oauth clients:fetch {client_id} --show-secret {password}`
+
+where:
 
 `password` => The password the user used when created the client [*REQUIRED*]
