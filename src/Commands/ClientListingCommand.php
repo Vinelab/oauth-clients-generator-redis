@@ -1,6 +1,6 @@
 <?php
 
-namespace Vinelab\ClientGenerator;
+namespace Vinelab\ClientGenerator\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -9,12 +9,32 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ClientListingCommand extends Command
 {
+    /**
+     * Command for listing clients.
+     *
+     * @var string
+     */
     protected $commandName = 'clients:list';
 
+    /**
+     * Client listing command description.
+     *
+     * @var string
+     */
     protected $commandDescription = 'List all clients.';
 
+    /**
+     * Command option for showing client's secret.
+     *
+     * @var string
+     */
     protected $commandOptionName = 'show-secret';
 
+    /**
+     * Show secret command option description.
+     *
+     * @var string
+     */
     protected $commandOptionDescription = 'If set, it will show the specific client\'s secret.';
 
     protected function configure()

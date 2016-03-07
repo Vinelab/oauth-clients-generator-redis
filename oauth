@@ -5,9 +5,9 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Vinelab\ClientGenerator\ClientCreatorCommand;
-use Vinelab\ClientGenerator\ClientDeletorCommand;
-use Vinelab\ClientGenerator\ClientListingCommand;
+use Vinelab\ClientGenerator\Commands\ClientCreatorCommand;
+use Vinelab\ClientGenerator\Commands\ClientDeletorCommand;
+use Vinelab\ClientGenerator\Commands\ClientListingCommand;
 
 $application = new Application();
 
