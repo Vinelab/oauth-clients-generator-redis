@@ -28,8 +28,11 @@
         "mockery/mockery": "0.9.*"
     },
 
-    "autoload": {
-        "psr-0": {
+     "autoload": {
+        "classmap": [
+            "Commands"
+        ],
+        "psr-4": {
             "Vinelab\\ClientGenerator\\": "src/"
         }
     }

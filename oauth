@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Vinelab\ClientGenerator\ClientCreatorCommand;
+use Vinelab\ClientGenerator\ClientDeletorCommand;
+use Vinelab\ClientGenerator\ClientListingCommand;
+
+$application = new Application();
+
+# add our commands
+$application->add(new ClientCreatorCommand());
+$application->add(new ClientDeletorCommand());
+$application->add(new ClientListingCommand());
+
+$application->run();
