@@ -22,7 +22,7 @@ class ClientGetterCommand extends Command
      *
      * @var string
      */
-    protected $commandDescription = 'Fetch a specific client clients.';
+    protected $commandDescription = 'Fetch a specific client.';
 
     /**
      * Command option for showing client's secret.

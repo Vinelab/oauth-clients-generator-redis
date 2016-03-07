@@ -9,6 +9,7 @@ use Vinelab\ClientGenerator\Commands\ClientCreatorCommand;
 use Vinelab\ClientGenerator\Commands\ClientDeletorCommand;
 use Vinelab\ClientGenerator\Commands\ClientGetterCommand;
 use Vinelab\ClientGenerator\Commands\ClientListingCommand;
+use Vinelab\ClientGenerator\Commands\ClientSecretRegenerationCommand;
 
 $application = new Application();
 
@@ -17,5 +18,6 @@ $application->add(new ClientCreatorCommand());
 $application->add(new ClientDeletorCommand());
 $application->add(new ClientListingCommand());
 $application->add(new ClientGetterCommand());
+$application->add(new ClientSecretRegenerationCommand());
 
 $application->run();
