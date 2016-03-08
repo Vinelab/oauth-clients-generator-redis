@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ClientDeletorCommand extends Command
+class ClientRemovalCommand extends Command
 {
     /**
      * Command for deleting specific client.
