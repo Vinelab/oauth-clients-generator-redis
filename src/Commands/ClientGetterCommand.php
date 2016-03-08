@@ -36,21 +36,21 @@ class ClientGetterCommand extends Command
      *
      * @var string
      */
-    protected $commandOptionDescription = 'If set, it will show the specific client\'s secret.';
+    protected $commandShowSecretDescription = 'If set, it will show the specific client\'s secret.';
 
     /**
      * The client_id argument.
      *
      * @var string
      */
-    protected $commandArgumentName = 'client_id';
+    protected $commandClientId = 'client_id';
 
     /**
      * The client_id argument description.
      *
      * @var string
      */
-    protected $commandArgumentDescription = 'Which client do you want to fetch?';
+    protected $commandClientIdDescription = 'Which client do you want to fetch?';
 
     protected function configure()
     {
@@ -58,21 +58,21 @@ class ClientGetterCommand extends Command
             ->setName($this->commandName)
             ->setDescription($this->commandDescription)
             ->addArgument(
-                $this->commandArgumentName,
+                $this->commandClientId,
                 InputArgument::REQUIRED,
-                $this->commandArgumentDescription
+                $this->commandClientIdDescription
             )
             ->addOption(
                $this->commandShowSecret,
                null,
                InputOption::VALUE_REQUIRED,
-               $this->commandOptionDescription
+               $this->commandShowSecretDescription
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $clientId = $input->getArgument($this->commandArgumentName);
+        $clientId = $input->getArgument($this->commandClientId);
 
         if ($password = $input->getOption($this->commandShowSecret)) {
             $output->writeln('<info>Your client\'s secret is: </info>');

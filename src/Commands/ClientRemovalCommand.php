@@ -28,14 +28,14 @@ class ClientRemovalCommand extends Command
      *
      * @var string
      */
-    protected $commandArgumentName = 'client_id';
+    protected $commandClientId = 'client_id';
 
     /**
      * The client_id argument description.
      *
      * @var string
      */
-    protected $commandArgumentDescription = 'Which client do you want to delete?';
+    protected $commandClientIdDescription = 'Which client do you want to delete?';
 
     protected function configure()
     {
@@ -43,15 +43,15 @@ class ClientRemovalCommand extends Command
             ->setName($this->commandName)
             ->setDescription($this->commandDescription)
             ->addArgument(
-                $this->commandArgumentName,
+                $this->commandClientId,
                 InputArgument::REQUIRED,
-                $this->commandArgumentDescription
+                $this->commandClientIdDescription
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $clientId = $input->getArgument($this->commandArgumentName);
+        $clientId = $input->getArgument($this->commandClientId);
 
         $output->writeln('<info>Your client has been deleted successfully!</info>');
     }
