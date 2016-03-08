@@ -19,7 +19,8 @@
 
     "require": {
         "vinelab/assistant": "~1.2",
-        "symfony/console": "^3.0"
+        "symfony/console": "^3.0",
+        "vinelab/oauth-manager-redis": "~0.1.0"
     },
 
     "require-dev": {
@@ -28,9 +29,16 @@
         "mockery/mockery": "0.9.*"
     },
 
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:Vinelab/oauth-manager-redis.git"
+        }
+    ],
+
      "autoload": {
         "classmap": [
-            "Commands"
+            "src/Commands"
         ],
         "psr-4": {
             "Vinelab\\ClientGenerator\\": "src/"
