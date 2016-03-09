@@ -81,7 +81,7 @@ class ClientStorage
             $hash = $this->connection->hmget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'name', 'redirect_uri', 'grant_type');
 
             $client  = new ClientEntity($clientId, $hash['name'], null, null, $hash['redirect_uri'], $hash['grant_type']);
-            }
+        }
 
         return $client;
     }
