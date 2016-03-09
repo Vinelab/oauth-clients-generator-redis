@@ -68,26 +68,20 @@ class ClientStorage
      *
      * @return Vinelab\ClientGenerator\Entities\ClientEntity
      */
-    public function read($clientId, $password, bool $showSecret = null)
+    public function read($clientId, $password = null)
     {
-        $client = null;
+        $client = new ClientEntity(null, null, null, null, null, null);
 
-        // Check if passowrd match with the Client's
-        if($password == $this->connection->hget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'password')) {
+        // Check if password match with the Client's
+        if($password && $password == $this->connection->hget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'password')) {
+            $hash = $this->connection->hmget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'name', 'secret', 'redirect_uri', 'grant_type');
 
-            if($showSecret) {
-                $client = $this->connection->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
+            $client  = new ClientEntity($clientId, $hash['name'], null, $hash['secret'], $hash['redirect_uri'], $hash['grant_type']);
+        } else {
+            $hash = $this->connection->hmget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'name', 'redirect_uri', 'grant_type');
 
-                $client  = new ClientEntity($clientid, $client['name'], $client['password'], $client['secret'], $client['redirect_uri'], $client['grant_type']);
-            } else {
-                $client = $this->connection->hmget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'name', 'redirect_uri', 'grant_type');
-
-                $client  = new ClientEntity($clientid, $client['name'], null, null, $client['redirect_uri'], $client['grant_type']);
+            $client  = new ClientEntity($clientId, $hash['name'], null, null, $hash['redirect_uri'], $hash['grant_type']);
             }
-        }
-
-        // If we set all ClientEntity constructor defaults to null then this here is possible
-        //return $client ? new ClientEntity($clientId, extract($client, EXTR_OVERWRITE)) : new ClientEntity();
 
         return $client;
     }
