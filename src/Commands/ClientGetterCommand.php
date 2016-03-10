@@ -75,7 +75,7 @@ class ClientGetterCommand extends Command
     {
         $clientId = $input->getArgument($this->commandClientId);
 
-        $clientStorage = $this->app->make(ClientStorage::class);
+        $clientStorage = new ClientStorage();
 
         if ($password = $input->getOption($this->commandShowSecret)) {
             $client = $clientStorage->read($clientId, $password);

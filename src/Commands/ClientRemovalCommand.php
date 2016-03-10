@@ -54,7 +54,7 @@ class ClientRemovalCommand extends Command
     {
         $clientId = $input->getArgument($this->commandClientId);
 
-        $clientStorage = $this->app->make(ClientStorage::class);
+        $clientStorage = new ClientStorage();
 
         if ($clientStorage->delete($clientId)) {
             $output->writeln('<info>Your client has been deleted successfully!</info>');

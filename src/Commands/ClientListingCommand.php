@@ -32,7 +32,7 @@ class ClientListingCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $clientStorage = $this->app->make(ClientStorage::class);
+        $clientStorage = new ClientStorage();
 
         if ($clients = $clientStorage->listClients()) {
             $output->writeln('<info>Your clients are: </info>');

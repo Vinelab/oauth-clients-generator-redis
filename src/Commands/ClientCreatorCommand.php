@@ -130,7 +130,7 @@ class ClientCreatorCommand extends Command
         $redirectUri = $input->getArgument($this->commandRedirectUri);
         $grantType = $input->getArgument($this->commandGrantType);
 
-        $clientStorage = $this->app->make(ClientStorage::class);
+        $clientStorage = new ClientStorage();
 
         if ($clientStorage->create($appName, $password, $redirectUri, $grantType)) {
             $output->writeln('<info>Your client has been generated successfully!</info>');
