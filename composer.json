@@ -3,6 +3,8 @@
     "description": "Redis Client Generator for the League's PHP OAuth 2.0 server",
     "keywords": ["redis", "oauth2", "client", "database", "client-generator"],
     "license": "MIT",
+    "type": "library",
+
     "authors": [
         {
             "name": "Charalampos Raftopoulos",
