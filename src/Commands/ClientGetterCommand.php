@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Vinelab\ClientGenerator\Storage\ClientStorage;
 
 class ClientGetterCommand extends Command
 {
@@ -74,10 +75,16 @@ class ClientGetterCommand extends Command
     {
         $clientId = $input->getArgument($this->commandClientId);
 
+        $clientStorage = $this->app->make(ClientStorage::class);
+
         if ($password = $input->getOption($this->commandShowSecret)) {
-            $output->writeln('<info>Your client\'s secret is: </info>');
+            $client = $clientStorage->read($clientId, $password);
+            $output->writeln('<info>Your client\'s secret is: </info>'.$client['secret']);
         } else {
+            $client = $clientStorage->read($clientId);
             $output->writeln('<info>Your client\'s information are: </info>');
+            $output->writeln('<info>Client ID: </info>'.$client['clientId']);
+            $output->writeln('<info>App Name: </info>'.$client['name']);
         }
     }
 }

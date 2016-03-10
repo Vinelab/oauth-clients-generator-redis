@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Vinelab\ClientGenerator\Storage\ClientStorage;
 
 class ClientRemovalCommand extends Command
 {
@@ -53,6 +54,12 @@ class ClientRemovalCommand extends Command
     {
         $clientId = $input->getArgument($this->commandClientId);
 
-        $output->writeln('<info>Your client has been deleted successfully!</info>');
+        $clientStorage = $this->app->make(ClientStorage::class);
+
+        if ($clientStorage->delete($clientId)) {
+            $output->writeln('<info>Your client has been deleted successfully!</info>');
+        } else {
+            $output->writeln('<error>Error when deleting the client...!</error>');
+        }
     }
 }

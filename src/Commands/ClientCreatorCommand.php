@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Vinelab\ClientGenerator\Storage\ClientStorage;
 
 class ClientCreatorCommand extends Command
 {
@@ -129,6 +130,12 @@ class ClientCreatorCommand extends Command
         $redirectUri = $input->getArgument($this->commandRedirectUri);
         $grantType = $input->getArgument($this->commandGrantType);
 
-        $output->writeln('<info>Your client has been generated successfully!</info>');
+        $clientStorage = $this->app->make(ClientStorage::class);
+
+        if ($clientStorage->create($appName, $password, $redirectUri, $grantType)) {
+            $output->writeln('<info>Your client has been generated successfully!</info>');
+        } else {
+            $output->writeln('<error>There was an error when creating your client...!</error>');
+        }
     }
 }
