@@ -18,7 +18,7 @@ class ClientStorage
     private $connection;
     private $redisKeysManager;
 
-    public function construct(RedisClientInterface $connection, RedisKeysManager $manager)
+    public function __construct(RedisClientInterface $connection, RedisKeysManager $manager)
     {
         $this->connection = $connection;
         $this->redisKeysManager = $manager;
@@ -54,7 +54,7 @@ class ClientStorage
                 'grant_type'    => $grantType
             ]);
 
-        $pipe->execute;
+        $pipe->execute();
 
         return new ClientEntity($clientId, $name, $password, $secret, $redirectUri, $grantType);
     }
