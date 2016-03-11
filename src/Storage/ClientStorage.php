@@ -72,7 +72,6 @@ class ClientStorage
      *
      * @param string $clientId
      * @param string $password
-     * @param bool   $showSecret
      *
      * @return Vinelab\ClientGenerator\Entities\ClientEntity
      */
