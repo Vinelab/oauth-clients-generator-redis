@@ -53,18 +53,11 @@ class ClientStorage
         $pipe->sadd($this->redisKeysManager->makeKey(ClientKey::make()), $clientId);
 
         // Add client hash
-        $pipe->hmset($this->redisKeysManager->makeKey(ClientKey::make($clientId)),
-            [
-                'name'          => $name,
-                'password'      => $password,
-                'secret'        => $secret,
-                'redirect_uri'  => $redirectUri,
-                'grant_type'    => $grantType
-            ]);
+        $pipe->hmset($this->redisKeysManager->makeKey(ClientKey::make($clientId)), $payload);
 
         $pipe->execute();
 
-        return new ClientEntity($clientId, $name, $password, $secret, $redirectUri, $grantType);
+        return $this->mapClient($payload);
     }
 
     /**
@@ -77,20 +70,14 @@ class ClientStorage
      */
     public function read($clientId, $password = null)
     {
-        $client = new ClientEntity(null, null, null, null, null, null);
+        $clientHash = $this->connection->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
 
         // Check if password match with the Client's
-        if($password && $password == $this->connection->hget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'password')) {
-            $hash = $this->connection->hmget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'name', 'secret', 'redirect_uri', 'grant_type');
-
-            $client  = new ClientEntity($clientId, $hash['name'], null, $hash['secret'], $hash['redirect_uri'], $hash['grant_type']);
-        } else {
-            $hash = $this->connection->hmget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'name', 'redirect_uri', 'grant_type');
-
-            $client  = new ClientEntity($clientId, $hash['name'], null, null, $hash['redirect_uri'], $hash['grant_type']);
+        if(!$password || $password != $clientHash['password']) {
+            unset($clientHash['secret']);
         }
 
-        return $client;
+        return $this->mapClient($clientHash);
     }
 
     /**
@@ -105,8 +92,8 @@ class ClientStorage
 
         $clients = [];
         foreach ($clientsIds as $clientId) {
-            $name = $this->connection->hget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'name');
-            $clients[] = new ClientEntity($clientId, $name, null, null);
+            $clientHash = $this->connection->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
+            $clients[] = $this->mapClient($clientHash);
         }
 
         return $clients;
