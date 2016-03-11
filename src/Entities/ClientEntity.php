@@ -31,6 +31,5 @@ class ClientEntity
         $this->redirectUri = $redirectUri;
         $this->grantType = $grantType;
 
-        return $this;
     }
 }
