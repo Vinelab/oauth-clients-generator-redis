@@ -116,6 +116,31 @@ class ClientStorage
     {
         return (bool) $this->connection->del($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
     }
+
+    /**
+     * Update a client's secret
+     *
+     * @param string $clientId
+     * @param string $secret
+     *
+     * @return Vinelab\ClientGenerator\Entities\ClientEntity
+     */
+    public function updateSecret($clientId, $secret)
+    {
+        $pipe = $this->connection->pipeline();
+
+        $pipe->hset($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'secret', $secret);
+
+        $pipe->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
+
+        $result = $pipe->execute();
+
+        $clientHash = end($result);
+
+        return $this->mapClient($clientHash);
+    }
+
+    /**
      * Map a Client's hash into a Client Entity
      *
      * @param array $hash
