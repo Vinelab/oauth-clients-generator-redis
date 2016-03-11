@@ -27,17 +27,25 @@ class ClientStorage
     /**
      * Create an oauth Client
      *
+     * @parsm string $clientId
      * @param string $name
      * @param string $password
+     * @param string $secret
      * @param string $redirectUri
      * @param string $grantType
      *
      * @return Vinelab\ClientGenerator\Entities\ClientEntity
      */
-    public function create($name, $password, $redirectUri = null, $grantType = 'client_credentials')
+    public function create($clientId, $name, $password, $secret, $redirectUri = null, $grantType = 'client_credentials')
     {
-        $clientId = $this->generateUuid();
-        $secret = $this->generateUuid();
+        $payload = [
+                        'client_id'     => $clientId,
+                        'name'          => $name,
+                        'password'      => $password,
+                        'secret'        => $secret,
+                        'redirect_uri'  => $redirectUri,
+                        'grant_type'    => $grantType
+                    ];
 
         $pipe = $this->connection->pipeline();
 
