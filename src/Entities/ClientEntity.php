@@ -30,6 +30,35 @@ class ClientEntity
         $this->secret = $secret;
         $this->redirectUri = $redirectUri;
         $this->grantType = $grantType;
+    }
 
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getSecret()
+    {
+        return $this->secret;
+    }
+
+    public function getRedirectUri()
+    {
+        return $this->redirectUri;
+    }
+
+    public function getGrantType()
+    {
+        return $this->grantType;
     }
 }
