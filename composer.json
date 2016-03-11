@@ -22,7 +22,7 @@
 
     "require": {
         "vinelab/assistant": "~1.2",
-        "vinelab/oauth-manager-redis": "~0.1.0"
+        "vinelab/oauth-manager-redis": "dev-dev"
     },
 
     "repositories": [
