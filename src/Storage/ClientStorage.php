@@ -91,7 +91,7 @@ class ClientStorage
      *
      * @return array Vinelab\ClientGenerator\Entities\ClientEntity
      */
-    public function listClients()
+    public function all()
     {
         // Get all clients ids
         $clientsIds = $this->connection->smembers($this->redisKeysManager->makeKey(ClientKey::make()));
