@@ -116,4 +116,16 @@ class ClientStorage
     {
         return (bool) $this->connection->del($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
     }
+     * Map a Client's hash into a Client Entity
+     *
+     * @param array $hash
+     *
+     * @return Vinelab\ClientGenerator\Entities\ClientEntity
+     */
+    private function mapClient($hash)
+    {
+        extract($hash);
+
+        return new ClientEntity($client_id, $name, null, (isset($secret) ? $secret : null), $redirect_uri, $grant_type);
+    }
 }
