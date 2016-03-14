@@ -26,13 +26,6 @@
         "vinelab/oauth-manager-redis": "dev-dev"
     },
 
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:Vinelab/oauth-manager-redis.git"
-        }
-    ],
-
     "require-dev": {
         "phpunit/phpunit": "~4.0",
         "fabpot/php-cs-fixer": "^1.10",
