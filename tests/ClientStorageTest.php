@@ -44,8 +44,6 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
 
         $this->redis->shouldReceive('execute')->andReturn([1, 1]);
 
-        $this->storage->shouldReceive('create')->with('123', 'john', 'unknownpassword', 'secret', 'uri', 'client_credentials')->andReturn($this->client);
-
         $client = $this->clientStorage->create('123', 'john', 'unknownpassword', 'secret', 'uri', 'client_credentials');
 
         $this->assertInstanceOf('Vinelab\ClientGenerator\Entities\ClientEntity', $client);
@@ -69,8 +67,6 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
                 'grant_type'    => 'client_credentials'
             ]);
 
-        $this->storage->shouldReceive('read')->with('123', 'unknownpassword')->andReturn($this->client);
-
         $client = $this->clientStorage->read('123', 'unknownpassword');
 
         $this->assertInstanceOf('Vinelab\ClientGenerator\Entities\ClientEntity', $client);
@@ -93,8 +89,6 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
                 'redirect_uri'  => 'uri',
                 'grant_type'    => 'client_credentials'
             ]);
-
-        $this->storage->shouldReceive('read')->with('123')->andReturn($this->client);
 
         $client = $this->clientStorage->read('123');
 
@@ -149,40 +143,25 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function test_update_secret()
+    public function test_update_secret_with_password()
     {
         $this->redis->shouldReceive('pipeline')->andReturn($this->redis);
 
+        $this->redis->shouldReceive('hget')->once()->with('oauth:clients:123', 'password')->andReturn('unknownpassword');
         $this->redis->shouldReceive('hset')->once()->with('oauth:clients:123', 'secret', 'newsecret')->andReturn(1);
 
-        $this->redis->shouldReceive('hgetall')->once()->with('oauth:clients:123')->andReturn(
-            [
-                'client_id'     => '123',
-                'name'          => 'john',
-                'password'      => 'unknownpassword',
-                'secret'        => 'newsecret',
-                'redirect_uri'  => 'uri',
-                'grant_type'    => 'client_credentials'
-            ]);
+        $update = $this->clientStorage->updateSecret('123', 'newsecret', 'unknownpassword');
 
-        $this->redis->shouldReceive('execute')->andReturn(
-            [1,
-            [
-                'client_id'     => '123',
-                'name'          => 'john',
-                'password'      => 'unknownpassword',
-                'secret'        => 'newsecret',
-                'redirect_uri'  => 'uri',
-                'grant_type'    => 'client_credentials'
-            ]
-            ]);
+        $this->assertTrue($update);
+    }
 
-        $this->storage->shouldReceive('updateSecret')->with('oauth:clients:123', 'newsecret')->andReturn($this->client);
+    public function test_update_secret_without_password()
+    {
+        $this->redis->shouldReceive('hget')->once()->with('oauth:clients:123', 'password')->andReturn('unknownpassword');
 
-        $client = $this->clientStorage->updateSecret('123', 'newsecret');
+        $update = $this->clientStorage->updateSecret('123', 'newsecret');
 
-        $this->assertInstanceOf('Vinelab\ClientGenerator\Entities\ClientEntity', $client);
-        $this->assertEquals('newsecret', $client->getSecret());
+        $this->assertNull($update);
     }
 
     public function test_delete()
