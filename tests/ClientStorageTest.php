@@ -148,7 +148,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
         $this->redis->shouldReceive('pipeline')->andReturn($this->redis);
 
         $this->redis->shouldReceive('hget')->once()->with('oauth:clients:123', 'password')->andReturn('unknownpassword');
-        $this->redis->shouldReceive('hset')->once()->with('oauth:clients:123', 'secret', 'newsecret')->andReturn(1);
+        $this->redis->shouldReceive('hset')->once()->with('oauth:clients:123', 'secret', 'newsecret')->andReturn(0);
 
         $update = $this->clientStorage->updateSecret('123', 'newsecret', 'unknownpassword');
 
