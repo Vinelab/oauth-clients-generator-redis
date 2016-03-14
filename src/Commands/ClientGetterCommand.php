@@ -33,28 +33,28 @@ class ClientGetterCommand extends Command
      *
      * @var string
      */
-    protected $showSecret = 'show-secret';
+    private $showSecret = 'show-secret';
 
     /**
      * Show secret command option description.
      *
      * @var string
      */
-    protected $showSecretDescription = 'If set, it will show the specific client\'s secret.';
+    private $showSecretDescription = 'If set, it will show the specific client\'s secret.';
 
     /**
      * The client_id argument.
      *
      * @var string
      */
-    protected $clientId = 'client_id';
+    private $clientId = 'client_id';
 
     /**
      * The client_id argument description.
      *
      * @var string
      */
-    protected $clientIdDescription = 'Which client do you want to fetch?';
+    private $clientIdDescription = 'Which client do you want to fetch?';
 
     protected function configure()
     {

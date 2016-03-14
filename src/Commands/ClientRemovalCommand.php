@@ -32,14 +32,14 @@ class ClientRemovalCommand extends Command
      *
      * @var string
      */
-    protected $clientId = 'client_id';
+    private $clientId = 'client_id';
 
     /**
      * The client_id argument description.
      *
      * @var string
      */
-    protected $clientIdDescription = 'Which client do you want to delete?';
+    private $clientIdDescription = 'Which client do you want to delete?';
 
     protected function configure()
     {

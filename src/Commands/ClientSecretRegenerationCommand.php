@@ -31,28 +31,28 @@ class ClientSecretRegenerationCommand extends Command
      *
      * @var string
      */
-    protected $clientId = 'client_id';
+    private $clientId = 'client_id';
 
     /**
      * The client_id argument description.
      *
      * @var string
      */
-    protected $clientIdDescription = 'Which client do you want to fetch?';
+    private $clientIdDescription = 'Which client do you want to fetch?';
 
     /**
      * The password argument.
      *
      * @var string
      */
-    protected $password = 'password';
+    private $password = 'password';
 
     /**
      * The password argument description.
      *
      * @var string
      */
-    protected $passwordDescription = 'Which password does the client use?';
+    private $passwordDescription = 'Which password does the client use?';
 
     protected function configure()
     {

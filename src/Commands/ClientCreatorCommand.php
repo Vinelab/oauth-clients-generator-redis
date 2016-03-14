@@ -36,70 +36,70 @@ class ClientCreatorCommand extends Command
      *
      * @var string
      */
-    protected $name = 'name';
+    private $name = 'name';
 
     /**
      * The name argument description.
      *
      * @var string
      */
-    protected $nameDescription = 'Name of the app.';
+    private $nameDescription = 'Name of the app.';
 
     /**
      * The redirect_uri argument.
      *
      * @var string
      */
-    protected $redirectUri = 'redirect_uri';
+    private $redirectUri = 'redirect_uri';
 
     /**
      * The redirect_uri argument description.
      *
      * @var string
      */
-    protected $redirectUriDescription = 'Redirect Uri.';
+    private $redirectUriDescription = 'Redirect Uri.';
 
     /**
      * Default redirect_uri argument.
      *
      * @var string
      */
-    protected $defaultRedirectUri = '';
+    private $defaultRedirectUri = '';
 
     /**
      * The grantType argument.
      *
      * @var string
      */
-    protected $grantType = 'grantType';
+    private $grantType = 'grantType';
 
     /**
      * Default grantType argument.
      *
      * @var string
      */
-    protected $defaultGrantType = 'client_credentials';
+    private $defaultGrantType = 'client_credentials';
 
     /**
      * The grantType argument description.
      *
      * @var string
      */
-    protected $grantTypeDescription = 'The grant type to use with OAuth2.';
+    private $grantTypeDescription = 'The grant type to use with OAuth2.';
 
     /**
      * The password argument.
      *
      * @var string
      */
-    protected $password = 'password';
+    private $password = 'password';
 
     /**
      * The password argument description.
      *
      * @var string
      */
-    protected $passwordDescription = 'The password needed to delete or update a specific user.';
+    private $passwordDescription = 'The password needed to delete or update a specific user.';
 
     protected function configure()
     {
