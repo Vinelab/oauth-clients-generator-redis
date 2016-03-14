@@ -124,7 +124,7 @@ class ClientStorage
     {
         $pipe = $this->connection->pipeline();
 
-        if($password == $this->connection->hget($this->redisKeysManager(ClientKey::make($clientId)), 'password')) {
+        if($password == $this->connection->hget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'password')) {
             $pipe->hset($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'secret', $secret);
         }
 
