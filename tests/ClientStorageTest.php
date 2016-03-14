@@ -44,8 +44,6 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
 
         $this->redis->shouldReceive('execute')->andReturn([1, 1]);
 
-        $this->storage->shouldReceive('create')->with('123', 'john', 'unknownpassword', 'secret', 'uri', 'client_credentials')->andReturn($this->client);
-
         $client = $this->clientStorage->create('123', 'john', 'unknownpassword', 'secret', 'uri', 'client_credentials');
 
         $this->assertInstanceOf('Vinelab\ClientGenerator\Entities\ClientEntity', $client);
@@ -69,8 +67,6 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
                 'grant_type'    => 'client_credentials'
             ]);
 
-        $this->storage->shouldReceive('read')->with('123', 'unknownpassword')->andReturn($this->client);
-
         $client = $this->clientStorage->read('123', 'unknownpassword');
 
         $this->assertInstanceOf('Vinelab\ClientGenerator\Entities\ClientEntity', $client);
@@ -93,8 +89,6 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
                 'redirect_uri'  => 'uri',
                 'grant_type'    => 'client_credentials'
             ]);
-
-        $this->storage->shouldReceive('read')->with('123')->andReturn($this->client);
 
         $client = $this->clientStorage->read('123');
 
@@ -177,7 +171,6 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
             ]
             ]);
 
-        $this->storage->shouldReceive('updateSecret')->with('oauth:clients:123', 'newsecret')->andReturn($this->client);
 
         $client = $this->clientStorage->updateSecret('123', 'newsecret');
 
