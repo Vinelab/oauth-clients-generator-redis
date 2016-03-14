@@ -115,24 +115,24 @@ class ClientStorage
      * Update a client's secret
      *
      * @param string $clientId
-     * @param string $password
      * @param string $secret
+     * @param string $password
      *
      * @return Vinelab\ClientGenerator\Entities\ClientEntity
      */
-    public function updateSecret($clientId, $password, $secret)
+    public function updateSecret($clientId, $secret, $password = null)
     {
-        $pipe = $this->connection->pipeline();
 
-        if($password == $this->connection->hget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'password')) {
+        $clientHash = $this->connection->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
+
+        if($password == $clientHash['password']) {
+            $pipe = $this->connection->pipeline();
             $pipe->hset($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'secret', $secret);
+            $pipe->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
+            $result = $pipe->execute();
+
+            $clientHash = end($result);
         }
-
-        $pipe->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
-
-        $result = $pipe->execute();
-
-        $clientHash = end($result);
 
         return $this->mapClient($clientHash);
     }
