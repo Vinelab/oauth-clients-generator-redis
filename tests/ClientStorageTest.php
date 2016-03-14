@@ -182,6 +182,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
         $client = $this->clientStorage->updateSecret('123', 'newsecret');
 
         $this->assertInstanceOf('Vinelab\ClientGenerator\Entities\ClientEntity', $client);
+        $this->assertEquals('newsecret', $client->getSecret());
     }
 
     public function test_delete()
