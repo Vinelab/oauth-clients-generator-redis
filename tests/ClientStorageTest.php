@@ -171,6 +171,29 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
             ]
             ]);
 
+    public function test_update_secret_without_password()
+    {
+        $this->redis->shouldReceive('pipeline')->andReturn($this->redis);
+
+        $this->redis->shouldReceive('hgetall')->once()->with('oauth:clients:123')->andReturn(
+            [
+                'client_id'     => '123',
+                'name'          => 'john',
+                'password'      => 'unknownpassword',
+                'secret'        => 'newsecret',
+                'redirect_uri'  => 'uri',
+                'grant_type'    => 'client_credentials'
+            ]);
+
+        $this->redis->shouldReceive('execute')->andReturn(
+            [
+                'client_id'     => '123',
+                'name'          => 'john',
+                'password'      => 'unknownpassword',
+                'secret'        => 'newsecret',
+                'redirect_uri'  => 'uri',
+                'grant_type'    => 'client_credentials'
+            ]);
 
         $client = $this->clientStorage->updateSecret('123', 'newsecret');
 
