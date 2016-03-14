@@ -6,12 +6,18 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Vinelab\ClientGenerator\Storage\ClientStorage;
+use Vinelab\Redis\Clients\RedisClient;
+use Vinelab\Redis\RedisKeysManager;
+use Vinelab\ClientGenerator\Traits\GeneratorTrait;
 
 /**
  * @author Charalampos Raftopoulos <harris@vinelab.com>
  */
 class ClientSecretRegenerationCommand extends Command
 {
+    use GeneratorTrait;
+
     /**
      * Command for fetching a client.
      *
@@ -76,6 +82,16 @@ class ClientSecretRegenerationCommand extends Command
         $clientId = $input->getArgument($this->clientId);
         $password = $input->getArgument($this->password);
 
-        $output->writeln('<info>Your client\'s secret has been re-generated!</info>');
+        $clientStorage = new ClientStorage(new RedisClient(null, 'dev', 6379), new RedisKeysManager());
+
+        $newSecret = $this->generateUuid();
+
+        if ($clientStorage->updateSecret($clientId, $newSecret, $password)) {
+            $output->writeln('<info>Your client\'s secret has been updated!</info>');
+            $output->writeln('<info>Client Secret: </info>'.$newSecret);
+            $output->writeln('-------------------------------------------------');
+        } else {
+            $output->writeln('<error>Client ID or client\'s password do not match!</error>');
+        }
     }
 }

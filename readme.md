@@ -55,7 +55,7 @@ where:
 
 `password` => The password the user used when created the client [**REQUIRED**]
 
-#### Re-generate Client's Secret (TODO)
+#### Re-generate Client's Secret
 
 In order to re-generate a specific client's secret, use the command:
 `oauth clients:regenerate-secret {client_id} {password}`,

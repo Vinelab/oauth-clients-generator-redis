@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vinelab\ClientGenerator\Storage\ClientStorage;
+use Vinelab\Redis\Clients\RedisClient;
+use Vinelab\Redis\RedisKeysManager;
 
 /**
  * @author Charalampos Raftopoulos <harris@vinelab.com>
@@ -78,16 +80,21 @@ class ClientGetterCommand extends Command
     {
         $clientId = $input->getArgument($this->clientId);
 
-        $clientStorage = new ClientStorage();
+        $clientStorage = new ClientStorage(new RedisClient(null, 'dev', 6379), new RedisKeysManager());
 
         if ($password = $input->getOption($this->showSecret)) {
             $client = $clientStorage->read($clientId, $password);
-            $output->writeln('<info>Your client\'s secret is: </info>'.$client['secret']);
+
+            if ($client->getSecret()) {
+                $output->writeln('<info>Your client\'s secret is: </info>'.$client->getSecret());
+            } else {
+                $output->writeln('<error>Your password is invalid!</error>');
+            }
         } else {
             $client = $clientStorage->read($clientId);
             $output->writeln('<info>Your client\'s information are: </info>');
-            $output->writeln('<info>Client ID: </info>'.$client['clientId']);
-            $output->writeln('<info>App Name: </info>'.$client['name']);
+            $output->writeln('<info>Client ID: </info>'.$client->getClientId());
+            $output->writeln('<info>App Name: </info>'.$client->getName());
         }
     }
 }

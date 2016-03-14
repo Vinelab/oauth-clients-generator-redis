@@ -17,6 +17,7 @@ use Vinelab\Redis\RedisKeysManager;
 class ClientCreatorCommand extends Command
 {
     use GeneratorTrait;
+
     /**
      * Command for creating a new client.
      *
@@ -141,6 +142,8 @@ class ClientCreatorCommand extends Command
 
         if ($client = $clientStorage->create($this->generateUuid(), $appName, $password, $this->generateUuid(), $redirectUri, $grantType)) {
             $output->writeln('<info>Your client has been generated successfully!</info>');
+            $output->writeln('<info>Client ID: </info>'.$client->getClientId());
+            $output->writeln('<info>Client Secret: </info>'.$client->getSecret());
         } else {
             $output->writeln('<error>There was an error when creating your client...!</error>');
         }

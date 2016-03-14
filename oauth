@@ -18,6 +18,6 @@ $application->add(new ClientCreatorCommand());
 $application->add(new ClientRemovalCommand());
 $application->add(new ClientListingCommand());
 $application->add(new ClientGetterCommand());
-// $application->add(new ClientSecretRegenerationCommand());
+$application->add(new ClientSecretRegenerationCommand());
 
 $application->run();
