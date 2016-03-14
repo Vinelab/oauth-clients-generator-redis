@@ -9,6 +9,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vinelab\ClientGenerator\Storage\ClientStorage;
 
+/**
+ * @author Charalampos Raftopoulos <harris@vinelab.com>
+ */
 class ClientGetterCommand extends Command
 {
     /**
@@ -30,28 +33,28 @@ class ClientGetterCommand extends Command
      *
      * @var string
      */
-    protected $commandShowSecret = 'show-secret';
+    protected $showSecret = 'show-secret';
 
     /**
      * Show secret command option description.
      *
      * @var string
      */
-    protected $commandShowSecretDescription = 'If set, it will show the specific client\'s secret.';
+    protected $showSecretDescription = 'If set, it will show the specific client\'s secret.';
 
     /**
      * The client_id argument.
      *
      * @var string
      */
-    protected $commandClientId = 'client_id';
+    protected $clientId = 'client_id';
 
     /**
      * The client_id argument description.
      *
      * @var string
      */
-    protected $commandClientIdDescription = 'Which client do you want to fetch?';
+    protected $clientIdDescription = 'Which client do you want to fetch?';
 
     protected function configure()
     {
@@ -59,25 +62,25 @@ class ClientGetterCommand extends Command
             ->setName($this->commandName)
             ->setDescription($this->commandDescription)
             ->addArgument(
-                $this->commandClientId,
+                $this->clientId,
                 InputArgument::REQUIRED,
-                $this->commandClientIdDescription
+                $this->clientIdDescription
             )
             ->addOption(
-               $this->commandShowSecret,
+               $this->showSecret,
                null,
                InputOption::VALUE_REQUIRED,
-               $this->commandShowSecretDescription
+               $this->showSecretDescription
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $clientId = $input->getArgument($this->commandClientId);
+        $clientId = $input->getArgument($this->clientId);
 
         $clientStorage = new ClientStorage();
 
-        if ($password = $input->getOption($this->commandShowSecret)) {
+        if ($password = $input->getOption($this->showSecret)) {
             $client = $clientStorage->read($clientId, $password);
             $output->writeln('<info>Your client\'s secret is: </info>'.$client['secret']);
         } else {

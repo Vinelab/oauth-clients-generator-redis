@@ -7,9 +7,16 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vinelab\ClientGenerator\Storage\ClientStorage;
+use Vinelab\ClientGenerator\Traits\GeneratorTrait;
+use Vinelab\Redis\Clients\RedisClient;
+use Vinelab\Redis\RedisKeysManager;
 
+/**
+ * @author Charalampos Raftopoulos <harris@vinelab.com>
+ */
 class ClientCreatorCommand extends Command
 {
+    use GeneratorTrait;
     /**
      * Command for creating a new client.
      *
@@ -29,28 +36,28 @@ class ClientCreatorCommand extends Command
      *
      * @var string
      */
-    protected $commandAppName = 'name';
+    protected $name = 'name';
 
     /**
      * The name argument description.
      *
      * @var string
      */
-    protected $commandAppDescription = 'Name of the app.';
+    protected $nameDescription = 'Name of the app.';
 
     /**
      * The redirect_uri argument.
      *
      * @var string
      */
-    protected $commandRedirectUri = 'redirect_uri';
+    protected $redirectUri = 'redirect_uri';
 
     /**
      * The redirect_uri argument description.
      *
      * @var string
      */
-    protected $commandRedirectUriDescription = 'Redirect Uri.';
+    protected $redirectUriDescription = 'Redirect Uri.';
 
     /**
      * Default redirect_uri argument.
@@ -64,7 +71,7 @@ class ClientCreatorCommand extends Command
      *
      * @var string
      */
-    protected $commandGrantType = 'grantType';
+    protected $grantType = 'grantType';
 
     /**
      * Default grantType argument.
@@ -78,21 +85,21 @@ class ClientCreatorCommand extends Command
      *
      * @var string
      */
-    protected $commandGrantTypeDescription = 'The grant type to use with OAuth2.';
+    protected $grantTypeDescription = 'The grant type to use with OAuth2.';
 
     /**
      * The password argument.
      *
      * @var string
      */
-    protected $commandPassword = 'password';
+    protected $password = 'password';
 
     /**
      * The password argument description.
      *
      * @var string
      */
-    protected $commandPasswordDescription = 'The password needed to delete or update a specific user.';
+    protected $passwordDescription = 'The password needed to delete or update a specific user.';
 
     protected function configure()
     {
@@ -100,39 +107,39 @@ class ClientCreatorCommand extends Command
             ->setName($this->commandName)
             ->setDescription($this->commandDescription)
             ->addArgument(
-                $this->commandAppName,
+                $this->name,
                 InputArgument::REQUIRED,
-                $this->commandAppDescription
+                $this->nameDescription
             )
             ->addArgument(
-                $this->commandPassword,
+                $this->password,
                 InputArgument::REQUIRED,
-                $this->commandPasswordDescription
+                $this->passwordDescription
             )
             ->addArgument(
-                $this->commandRedirectUri,
+                $this->redirectUri,
                 InputArgument::OPTIONAL,
-                $this->commandRedirectUriDescription,
+                $this->redirectUriDescription,
                 $this->defaultRedirectUri
             )
             ->addArgument(
-                $this->commandGrantType,
+                $this->grantType,
                 InputArgument::OPTIONAL,
-                $this->commandGrantTypeDescription,
+                $this->grantTypeDescription,
                 $this->defaultGrantType
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $appName = $input->getArgument($this->commandAppName);
-        $password = $input->getArgument($this->commandPassword);
-        $redirectUri = $input->getArgument($this->commandRedirectUri);
-        $grantType = $input->getArgument($this->commandGrantType);
+        $appName = $input->getArgument($this->name);
+        $password = $input->getArgument($this->password);
+        $redirectUri = $input->getArgument($this->redirectUri);
+        $grantType = $input->getArgument($this->grantType);
 
-        $clientStorage = new ClientStorage();
+        $clientStorage = new ClientStorage(new RedisClient(null, 'dev', 6379), new RedisKeysManager());
 
-        if ($clientStorage->create($appName, $password, $redirectUri, $grantType)) {
+        if ($client = $clientStorage->create($this->generateUuid(), $appName, $password, $this->generateUuid(), $redirectUri, $grantType)) {
             $output->writeln('<info>Your client has been generated successfully!</info>');
         } else {
             $output->writeln('<error>There was an error when creating your client...!</error>');

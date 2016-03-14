@@ -8,6 +8,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vinelab\ClientGenerator\Storage\ClientStorage;
 
+/**
+ * @author Charalampos Raftopoulos <harris@vinelab.com>
+ */
 class ClientRemovalCommand extends Command
 {
     /**
@@ -29,14 +32,14 @@ class ClientRemovalCommand extends Command
      *
      * @var string
      */
-    protected $commandClientId = 'client_id';
+    protected $clientId = 'client_id';
 
     /**
      * The client_id argument description.
      *
      * @var string
      */
-    protected $commandClientIdDescription = 'Which client do you want to delete?';
+    protected $clientIdDescription = 'Which client do you want to delete?';
 
     protected function configure()
     {
@@ -44,15 +47,15 @@ class ClientRemovalCommand extends Command
             ->setName($this->commandName)
             ->setDescription($this->commandDescription)
             ->addArgument(
-                $this->commandClientId,
+                $this->clientId,
                 InputArgument::REQUIRED,
-                $this->commandClientIdDescription
+                $this->clientIdDescription
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $clientId = $input->getArgument($this->commandClientId);
+        $clientId = $input->getArgument($this->clientId);
 
         $clientStorage = new ClientStorage();
 

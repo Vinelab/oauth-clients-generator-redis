@@ -7,6 +7,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vinelab\ClientGenerator\Storage\ClientStorage;
 
+/**
+ * @author Charalampos Raftopoulos <harris@vinelab.com>
+ */
 class ClientListingCommand extends Command
 {
     /**
