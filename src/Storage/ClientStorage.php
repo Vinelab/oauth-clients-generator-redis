@@ -124,7 +124,7 @@ class ClientStorage
     {
         if($password == $this->connection->hget($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'password')) {
 
-            return (bool) $this->connection->hmset($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'secret', $secret);
+            return !(bool) $this->connection->hset($this->redisKeysManager->makeKey(ClientKey::make($clientId)), 'secret', $secret);
         }
     }
 
