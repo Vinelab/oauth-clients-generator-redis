@@ -86,15 +86,18 @@ class ClientGetterCommand extends Command
             $client = $clientStorage->read($clientId, $password);
 
             if ($client->getSecret()) {
-                $output->writeln('<info>Your client\'s secret is: </info>'.$client->getSecret());
+                $output->writeln('<info>Your client\'s information are: </info>');
+                $output->writeln('<info>App Name: </info>'.$client->getName());
+                $output->writeln('<info>Client ID: </info>'.$client->getClientId());
+                $output->writeln('<info>Client Secret: </info>'.$client->getSecret());
             } else {
                 $output->writeln('<error>Your password is invalid!</error>');
             }
         } else {
             $client = $clientStorage->read($clientId);
             $output->writeln('<info>Your client\'s information are: </info>');
-            $output->writeln('<info>Client ID: </info>'.$client->getClientId());
             $output->writeln('<info>App Name: </info>'.$client->getName());
+            $output->writeln('<info>Client ID: </info>'.$client->getClientId());
         }
     }
 }

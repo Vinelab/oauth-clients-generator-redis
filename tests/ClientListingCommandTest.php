@@ -6,17 +6,15 @@ use Vinelab\ClientGenerator\Commands\ClientListingCommand;
 
 class ClientListingCommandTest extends \PHPUnit_Framework_TestCase
 {
-    public function testExecute()
+    public function testListingExecute()
     {
-        // $application = new Application();
-        // $application->add(new ClientListingCommand());
+        $application = new Application();
+        $application->add(new ClientListingCommand());
 
-        // $command = $application->find('clients:list');
-        // $commandTester = new CommandTester($command);
-        // $commandTester->execute(array('command' => $command->getName()));
+        $command = $application->find('clients:list');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array('command' => $command->getName()));
 
-        // $this->assertRegExp('/.../', $commandTester->getDisplay());
-
-            // ...
+        $this->assertRegExp('/.../', $commandTester->getDisplay());
     }
 }
