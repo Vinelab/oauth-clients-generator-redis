@@ -22,6 +22,7 @@
 
     "require": {
         "vinelab/assistant": "~1.2",
+        "symfony/console": "^3.0",
         "vinelab/oauth-manager-redis": "dev-dev"
     },
 
