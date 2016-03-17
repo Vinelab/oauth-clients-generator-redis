@@ -101,6 +101,17 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('client_credentials', $client->getGrantType());
     }
 
+    /**
+     * @expectedException        Vinelab\ClientGenerator\Exceptions\RedisKeyNotFoundException
+     * @expectedExceptionCode    404
+     */
+    public function test_read_with_wrong_id()
+    {
+        $this->redis->shouldReceive('hgetall')->with('oauth:clients:123')->andReturn([]);
+
+        $client = $this->clientStorage->read('123');
+    }
+
     public function test_all()
     {
         $this->redis->shouldReceive('smembers')->once()->andReturn(['123', '456', '789']);
