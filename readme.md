@@ -26,6 +26,22 @@ to your `composer.json` file and do a `composer update`.
 
 ## Commands
 
+Client Generator comes with a handy command line tool for usage straight from the command line. Once you install using composer an `oauth` binary will be in your `vendor/bin/`. To make things easier you can run
+
+`export PATH="./vendor/bin:$PATH"` to use `oauth` straight instead of `./vendor/bin/oauth`
+
+use `oauth list` for a list of available commands and `oauth --help [command]` for more info about each of them.
+
+##### Commands
+* `oauth`
+    * **Options**
+        * `clients:create`: Create a new client
+        * `clients:delete`: Delete a specific client
+        * `clients:list`: List all available clients
+        * `clients:fetch`: Fetch a specific client
+            * `--show-secret`: Show a specific client's secret
+        * `clients:regenerate-secret`: Re-generate a client's secret
+
 #### Create Client
 
 In order to create a new client, use the command:
