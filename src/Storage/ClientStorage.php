@@ -7,6 +7,7 @@ use Vinelab\Redis\RedisKeysManager;
 use Vinelab\ClientGenerator\Entities\ClientEntity;
 use Vinelab\ClientGenerator\Traits\GeneratorTrait;
 use Vinelab\Redis\Interfaces\RedisClientInterface;
+use Vinelab\ClientGenerator\Exceptions\RedisKeyNotFoundException;
 
 /**
  * @author Kinane Domloje <kinane@vinelab.com>
@@ -71,6 +72,10 @@ class ClientStorage
     public function read($clientId, $password = null)
     {
         $clientHash = $this->connection->hgetall($this->redisKeysManager->makeKey(ClientKey::make($clientId)));
+
+        if(empty($clientHash)) {
+            throw new RedisKeyNotFoundException('Redis Key associated with client id ['.$clientId.'] has not been found', 404);
+        }
 
         // Check if password match with the Client's
         if(!$password || $password != $clientHash['password']) {
