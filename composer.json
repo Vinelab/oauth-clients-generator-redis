@@ -46,5 +46,6 @@
         "psr-4": {
             "Vinelab\\ClientGenerator\\": "src/"
         }
-    }
+    },
+    "bin": ["oauth"],
 }
