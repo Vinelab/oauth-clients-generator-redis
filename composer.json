@@ -47,5 +47,5 @@
             "Vinelab\\ClientGenerator\\": "src/"
         }
     },
-    "bin": ["oauth"],
+    "bin": ["oauth"]
 }
