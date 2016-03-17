@@ -94,10 +94,11 @@ class ClientGetterCommand extends Command
                 $output->writeln('<error>Your password is invalid!</error>');
             }
         } else {
-            $client = $clientStorage->read($clientId);
-            $output->writeln('<info>Your client\'s information are: </info>');
-            $output->writeln('<info>App Name: </info>'.$client->getName());
-            $output->writeln('<info>Client ID: </info>'.$client->getClientId());
+            if ($clientStorage->read($clientId)) {
+                $output->writeln('<info>Your client\'s information are: </info>');
+                $output->writeln('<info>App Name: </info>'.$client->getName());
+                $output->writeln('<info>Client ID: </info>'.$client->getClientId());
+            }
         }
     }
 }
