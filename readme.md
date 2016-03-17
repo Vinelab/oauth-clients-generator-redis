@@ -11,28 +11,18 @@ Redis Client Generator to be used with ThePhpLeague's OAuth2 Package
 
 #### Composer
 
-First add to your `composer.json` file:
-
-```
-"repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:Vinelab/oauth-clients-generator-redis.git"
-        }
-    ]
-```
-
-and then require the package:
+Use the command:
 
 ```
 composer require vinelab/oauth-clients-generator-redis
 ```
 
-Make sure minimum stability is set to `dev`.
+otherwise, add:
 
-```
-"minimum-stability": "dev"
-```
+`"vinelab/oauth-clients-generator-redis": "dev-master"`
+
+to your `composer.json` file and do a `composer update`.
+
 
 ## Commands
 
