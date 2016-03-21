@@ -34,7 +34,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
         $this->redis->shouldReceive('sadd')->once()->with('oauth:clients', '123')->andReturn(1);
         $this->redis->shouldReceive('hmset')->once()->with('oauth:clients:123',
             [
-                'client_id'     => '123',
+                'id'            => '123',
                 'name'          => 'john',
                 'password'      => 'unknownpassword',
                 'secret'        => 'secret',
@@ -59,7 +59,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
     {
         $this->redis->shouldReceive('hgetall')->with('oauth:clients:123')->andReturn(
             [
-                'client_id'     => '123',
+                'id'            => '123',
                 'name'          => 'john',
                 'password'      => 'unknownpassword',
                 'secret'        => 'mysecret',
@@ -82,7 +82,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
     {
         $this->redis->shouldReceive('hgetall')->with('oauth:clients:123')->andReturn(
             [
-                'client_id'     => '123',
+                'id'            => '123',
                 'name'          => 'john',
                 'password'      => 'unknownpassword',
                 'secret'        => 'mysecret',
@@ -118,7 +118,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
 
         $this->redis->shouldReceive('hgetall')->with('oauth:clients:123')->andReturn(
             [
-                'client_id'     => '123',
+                'id'            => '123',
                 'name'          => 'john',
                 'password'      => 'unknownpassword',
                 'secret'        => 'mysecret',
@@ -128,7 +128,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
 
         $this->redis->shouldReceive('hgetall')->with('oauth:clients:456')->andReturn(
             [
-                'client_id'     => '456',
+                'id'            => '456',
                 'name'          => 'oliver',
                 'password'      => 'unknownpass',
                 'secret'        => 'mysecrety',
@@ -138,7 +138,7 @@ class ClientStorageTest extends PHPUnit_Framework_TestCase
 
         $this->redis->shouldReceive('hgetall')->with('oauth:clients:789')->andReturn(
             [
-                'client_id'     => '789',
+                'id'            => '789',
                 'name'          => 'stewart',
                 'password'      => 'unknown',
                 'secret'        => 'secret',

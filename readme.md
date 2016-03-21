@@ -46,11 +46,11 @@ where:
 
 In order to delete a specific client, use the command:
 
-`oauth clients:delete {client_id} {password}`,
+`oauth clients:delete {id} {password}`,
 
 where:
 
-`client_id` => The client's id [**REQUIRED**],
+`id` => The client's id [**REQUIRED**],
 
 `password` => The password the user used when created the client [**REQUIRED**]
 
@@ -64,15 +64,15 @@ In order to list all available clients, use the command:
 
 In order to fetch a specific client or just fetch a client's secret, use the command:
 
-`oauth clients:fetch {client_id}`,
+`oauth clients:fetch {id}`,
 
 where:
 
-`client_id` => The client's id [**REQUIRED**],
+`id` => The client's id [**REQUIRED**],
 
 and in case you want to fetch a specific user's secret, you can use the `--show-secret` flag in the command:
 
-eg. `oauth clients:fetch {client_id} --show-secret {password}`
+eg. `oauth clients:fetch {id} --show-secret {password}`
 
 where:
 
@@ -83,10 +83,10 @@ where:
 
 In order to re-generate a specific client's secret, use the command:
 
-`oauth clients:regenerate-secret {client_id} {password}`,
+`oauth clients:regenerate-secret {id} {password}`,
 
 where:
 
-`client_id` => The client's id [**REQUIRED**],
+`id` => The client's id [**REQUIRED**],
 
 `password` => The password the user used when created the client [**REQUIRED**]
