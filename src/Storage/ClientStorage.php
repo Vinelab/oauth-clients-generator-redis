@@ -40,7 +40,7 @@ class ClientStorage
     public function create($clientId, $name, $password, $secret, $redirectUri = null, $grantType = 'client_credentials')
     {
         $payload = [
-                        'id'            => $clientId,
+                        'client_id'     => $clientId,
                         'name'          => $name,
                         'password'      => $password,
                         'secret'        => $secret,
@@ -144,6 +144,6 @@ class ClientStorage
     {
         extract($hash);
 
-        return new ClientEntity($id, $name, null, (isset($secret) ? $secret : null), $redirect_uri, $grant_type);
+        return new ClientEntity($client_id, $name, null, (isset($secret) ? $secret : null), $redirect_uri, $grant_type);
     }
 }
