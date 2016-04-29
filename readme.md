@@ -1,5 +1,7 @@
 # Redis OAuth2 Client Generator
 
+![alt tag](http://oi68.tinypic.com/2u58jdi.jpg)
+
 Redis Client Generator to be used with ThePhpLeague's OAuth2 Package
 
 ## Quick Reference
